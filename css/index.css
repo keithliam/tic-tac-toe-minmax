@@ -1,4 +1,4 @@
-* {
+*:not(.ng-hide) {
 	transition: ease-in-out 0.15s;
 }
 
@@ -53,6 +53,7 @@ line.lines {
 circle {
 	stroke-width: 20;
 	stroke: white;
+	fill-opacity: 0;
 }
 
 rect {
@@ -98,6 +99,42 @@ rect.clickable:active {
 
 .verticalify {
 	vertical-align: middle;
+}
+
+.colorize1 {
+	fill: #03A9F4;
+}
+
+.colorize2 {
+	fill: #F44336;
+}
+
+.colorize3 {
+	fill: #64DD17;
+}
+
+.colorize4 {
+	fill: #009688;
+}
+
+.colorize5 {
+	fill: #FF9800;
+}
+
+.colorize6 {
+	fill: #9C27B0;
+}
+
+.colorize7 {
+	fill: #FFEB3B;
+}
+
+.colorize8 {
+	fill: #E91E63;
+}
+
+.colorize9 {
+	fill: #00C853;
 }
 
 .main > .ng-hide {
