@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', [])
+var myApp = angular.module('myApp', ['ngAnimate'])
 
 myApp.controller('thisController', ['$scope', function($scope){
     $scope.cells = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
