@@ -44,6 +44,12 @@ line {
 	stroke: white;
 }
 
+line.lines {
+	stroke-linecap: round;
+	stroke-width: 10;
+	stroke: white;
+}
+
 circle {
 	stroke-width: 20;
 	stroke: white;
