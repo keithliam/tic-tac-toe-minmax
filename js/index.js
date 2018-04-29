@@ -5,6 +5,7 @@ myApp.controller('thisController', ['$scope', function($scope){
     $scope.firstTurn = 1
     $scope.turn = 1
     $scope.win = false
+    $scope.draw = false
     $scope.lock = false
     $scope.cell00 = false
     $scope.cell01 = false
@@ -70,8 +71,6 @@ myApp.controller('thisController', ['$scope', function($scope){
         } else if(cells[0][0] && cells[0][1] && cells[0][2] && cells[1][0] && cells[1][1] && cells[1][2] && cells[2][0] && cells[2][1] && cells[2][2]){
             $scope.draw = true
             $scope.lock = true
-            $scope.turn = $scope.firstTurn === 1? 2 : 1;
-            $scope.firstTurn = $scope.turn
         }
     }
     $scope.move = function(row, col){
