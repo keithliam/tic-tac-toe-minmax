@@ -20,8 +20,10 @@ h1, h2, h3, h4, h5, h6, span, p {
 }
 
 svg.main {
-	height: 600px;
-	width: 600px;
+	margin-left: 15%;
+	margin-right: 15%;
+	max-width: 600px;
+	max-height: 600px;
 	margin-top: 20px;
 	border-radius: 20px;
 	background-color: grey;
@@ -71,7 +73,7 @@ rect.clickable:active {
 }
 
 #turn {
-	height: 80px;
+	max-height: 80px;
 }
 
 #turn-header {
@@ -88,6 +90,7 @@ rect.clickable:active {
 }
 
 .wrapper {
+	padding-bottom: 10px;
 	height: 100%;
 	display: table-cell;
 	vertical-align: middle;

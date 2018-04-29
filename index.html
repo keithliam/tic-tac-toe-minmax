@@ -24,7 +24,7 @@
 					<circle cx="40" cy="40" r="25" ng-show="turn === 2" />
 				</svg>
 			</div>
-	    	<svg class="main" ng-click="refresh()">
+	    	<svg class="main" ng-click="refresh()" viewBox="0 0 600 600">
 				<rect ng-click="move(0, 0)" class="{{ !cells[0][0] && !win && !draw? 'clickable' : cell00? colorize : null }}" x="0" y="0"/>
 					<svg class="x" ng-show="cells[0][0] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
