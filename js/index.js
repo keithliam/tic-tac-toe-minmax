@@ -38,7 +38,7 @@ myApp.controller('thisController', ['$scope', function($scope){
     }
     $scope.refresh = function(){
         if($scope.lock){
-            $scope.lock = false
+            $scope.lock = false 
         } else if($scope.win || $scope.draw){
             $scope.win = false
             $scope.draw = false

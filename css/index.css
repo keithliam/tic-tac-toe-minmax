@@ -66,7 +66,7 @@ rect.clickable:hover {
 }
 
 rect.clickable:active {
-	fill: #333;
+	fill: #888;
 }
 
 #turn {
