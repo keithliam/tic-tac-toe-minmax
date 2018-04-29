@@ -26,6 +26,8 @@ svg.main {
 	max-height: 600px;
 	margin-top: 20px;
 	border-radius: 20px;
+	border-color: black;
+	background-color: black;
 }
 
 svg.turn {
