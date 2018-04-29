@@ -22,8 +22,15 @@ h1, h2, h3, h4, h5, h6, span, p {
 svg.main {
 	height: 600px;
 	width: 600px;
+	margin-top: 20px;
 	border-radius: 20px;
 	background-color: grey;
+}
+
+svg.turn {
+	height: 80px;
+	width: 80px;
+	vertical-align: middle;
 }
 
 svg.x {
@@ -47,17 +54,42 @@ rect {
 	width: 200px;
 }
 
-rect:hover {
+rect.clickable:hover {
 	fill: #555;
 	cursor: pointer;
 }
 
-rect:active {
+rect.clickable:active {
 	fill: #333;
+}
+
+#turn {
+	height: 80px;
+}
+
+#turn-header {
+	display: inline-block;
+	line-height: 40px;
+}
+
+.turn > .x > line {
+	stroke-width: 10;
+}
+
+.turn > circle {
+	stroke-width: 10;
 }
 
 .wrapper {
 	height: 100%;
 	display: table-cell;
+	vertical-align: middle;
+}
+
+.inlinify {
+	display: inline-block;
+}
+
+.verticalify {
 	vertical-align: middle;
 }
