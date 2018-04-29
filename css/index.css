@@ -1,0 +1,63 @@
+* {
+	transition: ease-in-out 0.15s;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background-color: black;
+	text-align: center;
+	margin: auto;
+	display: table;
+}
+
+h1, h2, h3, h4, h5, h6, span, p {
+	color: white;
+	font-family: Helvetica, Arial, Verdana;
+}
+
+svg.main {
+	height: 600px;
+	width: 600px;
+	border-radius: 20px;
+	background-color: grey;
+}
+
+svg.x {
+	height: 200px;
+	width: 200px;
+}
+
+line {
+	stroke-linecap: round;
+	stroke-width: 20;
+	stroke: white;
+}
+
+circle {
+	stroke-width: 20;
+	stroke: white;
+}
+
+rect {
+	height: 200px;
+	width: 200px;
+}
+
+rect:hover {
+	fill: #555;
+	cursor: pointer;
+}
+
+rect:active {
+	fill: #333;
+}
+
+.wrapper {
+	height: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
