@@ -76,7 +76,7 @@ rect.clickable:active {
 
 #turn-header {
 	display: inline-block;
-	line-height: 40px;
+	line-height: 42px;
 }
 
 .turn > .x > line {
