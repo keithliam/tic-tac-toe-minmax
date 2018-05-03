@@ -1,5 +1,6 @@
 *:not(.ng-hide) {
 	transition: ease-in-out 0.15s;
+	font-family: Helvetica, Arial, Verdana;
 }
 
 html, body {
@@ -16,7 +17,6 @@ body {
 
 h1, h2, h3, h4, h5, h6, span, p {
 	color: white;
-	font-family: Helvetica, Arial, Verdana;
 }
 
 svg.main {
@@ -80,6 +80,26 @@ rect.clickable:active {
 #turn-header {
 	display: inline-block;
 	line-height: 42px;
+}
+
+#players-btn {
+	font-size: 20px;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	display: block;
+	margin: auto;
+	width: 110px;
+	cursor: pointer;
+}
+
+#players-btn:hover {
+	background-color: #555;
+}
+
+#players-btn:active {
+	background-color: #888;
 }
 
 .turn > .x > line {

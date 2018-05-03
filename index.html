@@ -12,7 +12,8 @@
     </head>
     <body ng-app ng-controller="thisController">
 	    <div class="wrapper">
-	    	<div ng-show="!is1Player">
+	    	<span id="players-btn" ng-click="changePlayers()">{{ is1Player? '1 Player' : '2 Players' }}</span>s
+	    	<div>
 		    	<div id="turn" class="inlinify verticalify">
 		    		<h3 id="turn-header">Turn: </h3>
 		    	</div>
@@ -25,19 +26,19 @@
 				</svg>
 			</div>
 	    	<svg class="main" ng-click="refresh()" viewBox="0 0 600 600">
-				<rect ng-click="move(0, 0)" class="{{ !cells[0][0] && !win && !draw? 'clickable' : cell00? colorize : null }}" x="0" y="0"/>
+				<rect ng-click="move(0, 0)" class="{{ !cells[0][0] && !win && !draw && !AIchoosing? 'clickable' : cell00? colorize : null }}" x="0" y="0"/>
 					<svg class="x" ng-show="cells[0][0] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
 					</svg>
 					<circle cx="100" cy="100" r="55" ng-show="cells[0][0] === 2"/>
-				<rect ng-click="move(0, 1)" class="{{ !cells[0][1] && !win && !draw? 'clickable' : cell01? colorize : null }}" x="200" y="0" />
+				<rect ng-click="move(0, 1)" class="{{ !cells[0][1] && !win && !draw && !AIchoosing? 'clickable' : cell01? colorize : null }}" x="200" y="0" />
 					<svg x="200" class="x" ng-show="cells[0][1] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
 					</svg>
 					<circle cx="300" cy="100" r="55" ng-show="cells[0][1] === 2"/>
-				<rect ng-click="move(0, 2)" class="{{ !cells[0][2] && !win && !draw? 'clickable' : cell02? colorize : null }}" x="400" y="0" />
+				<rect ng-click="move(0, 2)" class="{{ !cells[0][2] && !win && !draw && !AIchoosing? 'clickable' : cell02? colorize : null }}" x="400" y="0" />
 					<svg x="400" class="x" ng-show="cells[0][2] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
@@ -45,19 +46,19 @@
 					<circle cx="500" cy="100" r="55" ng-show="cells[0][2] === 2" />
 
 
-				<rect ng-click="move(1, 0)" class="{{ !cells[1][0] && !win && !draw? 'clickable' : cell10? colorize : null }}" x="0" y="200" />
+				<rect ng-click="move(1, 0)" class="{{ !cells[1][0] && !win && !draw && !AIchoosing? 'clickable' : cell10? colorize : null }}" x="0" y="200" />
 					<svg x="0" y="200" class="x" ng-show="cells[1][0] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
 					</svg>
 					<circle cx="100" cy="300" r="55" ng-show="cells[1][0] === 2" />
-				<rect ng-click="move(1, 1)" class="{{ !cells[1][1] && !win && !draw? 'clickable' : cell11? colorize : null }}" x="200" y="200" />
+				<rect ng-click="move(1, 1)" class="{{ !cells[1][1] && !win && !draw && !AIchoosing? 'clickable' : cell11? colorize : null }}" x="200" y="200" />
 					<svg x="200" y="200" class="x" ng-show="cells[1][1] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
 					</svg>
 					<circle cx="300" cy="300" r="55" ng-show="cells[1][1] === 2" />
-				<rect ng-click="move(1, 2)" class="{{ !cells[1][2] && !win && !draw? 'clickable' : cell12? colorize : null }}" x="400" y="200" />
+				<rect ng-click="move(1, 2)" class="{{ !cells[1][2] && !win && !draw && !AIchoosing? 'clickable' : cell12? colorize : null }}" x="400" y="200" />
 					<svg x="400" y="200" class="x" ng-show="cells[1][2] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
@@ -65,19 +66,19 @@
 					<circle cx="500" cy="300" r="55" ng-show="cells[1][2] === 2" />
 
 
-				<rect ng-click="move(2, 0)" class="{{ !cells[2][0] && !win && !draw? 'clickable' : cell20? colorize : null }}" x="0" y="400" />
+				<rect ng-click="move(2, 0)" class="{{ !cells[2][0] && !win && !draw && !AIchoosing? 'clickable' : cell20? colorize : null }}" x="0" y="400" />
 					<svg x="0" y="400" class="x" ng-show="cells[2][0] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
 					</svg>
 					<circle cx="100" cy="500" r="55" ng-show="cells[2][0] === 2" />
-				<rect ng-click="move(2, 1)" class="{{ !cells[2][1] && !win && !draw? 'clickable' : cell21? colorize : null }}" x="200" y="400" />
+				<rect ng-click="move(2, 1)" class="{{ !cells[2][1] && !win && !draw && !AIchoosing? 'clickable' : cell21? colorize : null }}" x="200" y="400" />
 					<svg x="200" y="400" class="x" ng-show="cells[2][1] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />
 					</svg>
 					<circle cx="300" cy="500" r="55" ng-show="cells[2][1] === 2" />
-				<rect ng-click="move(2, 2)" class="{{ !cells[2][2] && !win && !draw? 'clickable' : cell22? colorize : null }}" x="400" y="400" />
+				<rect ng-click="move(2, 2)" class="{{ !cells[2][2] && !win && !draw && !AIchoosing? 'clickable' : cell22? colorize : null }}" x="400" y="400" />
 					<svg x="400" y="400" class="x" ng-show="cells[2][2] === 1">
 						<line x1="55" y1="55" x2="145" y2="145" />
 						<line x1="55" y1="145" x2="145" y2="55" />

@@ -14,7 +14,7 @@ Array.prototype.clone = function(arr){
 
 var myApp = angular.module('myApp', ['ngAnimate'])
 
-myApp.controller('thisController', ['$scope', function($scope){
+myApp.controller('thisController', ['$scope', '$timeout', function($scope, $timeout){
     $scope.cells = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     $scope.is1Player = true
     $scope.turn = 1
@@ -33,70 +33,98 @@ myApp.controller('thisController', ['$scope', function($scope){
     $scope.cell22 = false
     $scope.colorizeNumber = 1
     $scope.colorize = 'colorize1'
-    $scope.checkWin = function(){
+    $scope.AIchoosing = false
+    $scope.changePlayers = function(){
+    	$scope.is1Player = !$scope.is1Player
+	    $scope.cells = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+	    $scope.turn = 1
+	    $scope.firstTurn = 1
+	    $scope.win = false
+	    $scope.draw = false
+	    $scope.lock = false
+	    $scope.cell00 = false
+	    $scope.cell01 = false
+	    $scope.cell02 = false
+	    $scope.cell10 = false
+	    $scope.cell11 = false
+	    $scope.cell12 = false
+	    $scope.cell20 = false
+	    $scope.cell21 = false
+	    $scope.cell22 = false
+	    $scope.colorizeNumber = 1
+	    $scope.colorize = 'colorize1'
+	    $scope.AIchoosing = false
+    }
+    $scope.checkWin = function(isAI){
         const cells = $scope.cells
-        if(cells[0][0] && cells[0][0] === cells[0][1] && cells[0][0] === cells[0][2]){
-            $scope.cell00 = true
-            $scope.cell01 = true
-            $scope.cell02 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[1][0] && cells[1][0] === cells[1][1] && cells[1][0] === cells[1][2]){
-            $scope.cell10 = true
-            $scope.cell11 = true
-            $scope.cell12 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[2][0] && cells[2][0] === cells[2][1] && cells[2][0] === cells[2][2]){
-            $scope.cell20 = true
-            $scope.cell21 = true
-            $scope.cell22 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[0][0] && cells[0][0] === cells[1][0] && cells[0][0] === cells[2][0]){
-            $scope.cell00 = true
-            $scope.cell10 = true
-            $scope.cell20 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[0][1] && cells[0][1] === cells[1][1] && cells[0][1] === cells[2][1]){
-            $scope.cell01 = true
-            $scope.cell11 = true
-            $scope.cell21 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[0][2] && cells[0][2] === cells[1][2] && cells[0][2] === cells[2][2]){
-            $scope.cell02 = true
-            $scope.cell12 = true
-            $scope.cell22 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[0][0] && cells[0][0] === cells[1][1] && cells[0][0] === cells[2][2]){
-            $scope.cell00 = true
-            $scope.cell11 = true
-            $scope.cell22 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[0][2] && cells[0][2] === cells[1][1] && cells[0][2] === cells[2][0]){
-            $scope.cell02 = true
-            $scope.cell11 = true
-            $scope.cell20 = true
-            $scope.win = true
-            $scope.lock = true
-        } else if(cells[0][0] && cells[0][1] && cells[0][2] && cells[1][0] && cells[1][1] && cells[1][2] && cells[2][0] && cells[2][1] && cells[2][2]){
+        if(cells[0][0] && cells[0][1] && cells[0][2] && cells[1][0] && cells[1][1] && cells[1][2] && cells[2][0] && cells[2][1] && cells[2][2]){
             $scope.draw = true
             $scope.lock = true
-        }
+            $scope.turn = $scope.turn === 1? 2 : 1
+        } else {
+            $scope.win = true
+            $scope.lock = true
+			$scope.turn = $scope.turn === 1? 2 : 1
+	        if(cells[0][0] && cells[0][0] === cells[0][1] && cells[0][0] === cells[0][2]){
+	            $scope.cell00 = true
+	            $scope.cell01 = true
+	            $scope.cell02 = true
+	        } else if(cells[1][0] && cells[1][0] === cells[1][1] && cells[1][0] === cells[1][2]){
+	            $scope.cell10 = true
+	            $scope.cell11 = true
+	            $scope.cell12 = true
+	        } else if(cells[2][0] && cells[2][0] === cells[2][1] && cells[2][0] === cells[2][2]){
+	            $scope.cell20 = true
+	            $scope.cell21 = true
+	            $scope.cell22 = true
+	        } else if(cells[0][0] && cells[0][0] === cells[1][0] && cells[0][0] === cells[2][0]){
+	            $scope.cell00 = true
+	            $scope.cell10 = true
+	            $scope.cell20 = true
+	        } else if(cells[0][1] && cells[0][1] === cells[1][1] && cells[0][1] === cells[2][1]){
+	            $scope.cell01 = true
+	            $scope.cell11 = true
+	            $scope.cell21 = true
+	        } else if(cells[0][2] && cells[0][2] === cells[1][2] && cells[0][2] === cells[2][2]){
+	            $scope.cell02 = true
+	            $scope.cell12 = true
+	            $scope.cell22 = true
+	        } else if(cells[0][0] && cells[0][0] === cells[1][1] && cells[0][0] === cells[2][2]){
+	            $scope.cell00 = true
+	            $scope.cell11 = true
+	            $scope.cell22 = true
+	        } else if(cells[0][2] && cells[0][2] === cells[1][1] && cells[0][2] === cells[2][0]){
+	            $scope.cell02 = true
+	            $scope.cell11 = true
+	            $scope.cell20 = true
+	        } else {
+	            $scope.win = false
+	            $scope.lock = false
+	            $scope.turn = $scope.turn === 1? 2 : 1
+	        }
+	    }
     }
     $scope.move = function(row, col){
     	const none = !$scope.cells[row][col]
-        if(!$scope.win && !$scope.draw && none){
-            $scope.cells[row][col] = 1
-            $scope.checkWin()
-        }
-        if(!$scope.win && !$scope.draw && none){
-        	$scope.AImakeMove()
-            $scope.checkWin()
+        if(!$scope.win && !$scope.draw && none && !$scope.AIchoosing){
+            if($scope.is1Player){
+            	$scope.turn = 2
+	        	$scope.AIchoosing = true
+	            $scope.cells[row][col] = 1
+	            $scope.checkWin(false)
+	        	$timeout(() => {
+	        		if($scope.is1Player){
+			            $scope.turn = 1
+		        		$scope.AImakeMove()
+			            $scope.checkWin(true)
+		        		$scope.AIchoosing = false
+		        	}
+	        	}, 1000)
+	        } else {
+	            $scope.cells[row][col] = $scope.turn
+	            $scope.turn = $scope.turn === 1? 2 : 1
+	            $scope.checkWin(false)
+	        }
         }
     }
     $scope.refresh = function(){
@@ -107,8 +135,16 @@ myApp.controller('thisController', ['$scope', function($scope){
             $scope.draw = false
             $scope.cells = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
             $scope.firstTurn = $scope.firstTurn === 1? 2 : 1;
-            if($scope.firstTurn === 2){
-        		$scope.AImakeMove()
+            $scope.turn = $scope.firstTurn
+            if($scope.is1Player && $scope.firstTurn === 2){
+            	$scope.AIchoosing = true
+	        	$timeout(() => {
+	        		if($scope.is1Player){
+			            $scope.turn = 1
+		        		$scope.AImakeMove()
+		        		$scope.AIchoosing = false
+		        	}
+	        	}, 1000)
             }
             $scope.cell00 = false
             $scope.cell01 = false
