@@ -51,8 +51,6 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    $scope.cell20 = false
 	    $scope.cell21 = false
 	    $scope.cell22 = false
-	    $scope.colorizeNumber = 1
-	    $scope.colorize = 'colorize1'
 	    $scope.AIchoosing = false
     }
     $scope.checkWin = function(isAI){
@@ -63,7 +61,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
             $scope.turn = $scope.turn === 1? 2 : 1
         } else {
             $scope.win = true
-            $scope.lock = true
+            $scope.lock = isAI? false : true
 			$scope.turn = $scope.turn === 1? 2 : 1
 	        if(cells[0][0] && cells[0][0] === cells[0][1] && cells[0][0] === cells[0][2]){
 	            $scope.cell00 = true
