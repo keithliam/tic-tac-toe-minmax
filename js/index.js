@@ -173,14 +173,14 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
     	var values = []
     	var bestMoves = []
     	var value
-    	nextMoves.map(function(move, i){
+    	nextMoves.some(function(move, i){
     		value = $scope.AImin($scope.AInextState($scope.cells, move[0], move[1], 2))
     		values.push(value)
     		if(value > max){
     			max = value
     		}
     	})
-    	values.map(function(value, i){
+    	values.some(function(value, i){
     		if(value === max){
     			bestMoves.push(i)
     		}
