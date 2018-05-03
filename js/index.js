@@ -55,52 +55,54 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
     }
     $scope.checkWin = function(isAI){
         const cells = $scope.cells
-        if(cells[0][0] && cells[0][1] && cells[0][2] && cells[1][0] && cells[1][1] && cells[1][2] && cells[2][0] && cells[2][1] && cells[2][2]){
-            $scope.draw = true
-            $scope.lock = true
-            $scope.turn = $scope.turn === 1? 2 : 1
+        $scope.win = true
+        $scope.lock = isAI? false : true
+		$scope.turn = $scope.turn === 1? 2 : 1
+        if(cells[0][0] && cells[0][0] === cells[0][1] && cells[0][0] === cells[0][2]){
+            $scope.cell00 = true
+            $scope.cell01 = true
+            $scope.cell02 = true
+        } else if(cells[1][0] && cells[1][0] === cells[1][1] && cells[1][0] === cells[1][2]){
+            $scope.cell10 = true
+            $scope.cell11 = true
+            $scope.cell12 = true
+        } else if(cells[2][0] && cells[2][0] === cells[2][1] && cells[2][0] === cells[2][2]){
+            $scope.cell20 = true
+            $scope.cell21 = true
+            $scope.cell22 = true
+        } else if(cells[0][0] && cells[0][0] === cells[1][0] && cells[0][0] === cells[2][0]){
+            $scope.cell00 = true
+            $scope.cell10 = true
+            $scope.cell20 = true
+        } else if(cells[0][1] && cells[0][1] === cells[1][1] && cells[0][1] === cells[2][1]){
+            $scope.cell01 = true
+            $scope.cell11 = true
+            $scope.cell21 = true
+        } else if(cells[0][2] && cells[0][2] === cells[1][2] && cells[0][2] === cells[2][2]){
+            $scope.cell02 = true
+            $scope.cell12 = true
+            $scope.cell22 = true
+        } else if(cells[0][0] && cells[0][0] === cells[1][1] && cells[0][0] === cells[2][2]){
+            $scope.cell00 = true
+            $scope.cell11 = true
+            $scope.cell22 = true
+        } else if(cells[0][2] && cells[0][2] === cells[1][1] && cells[0][2] === cells[2][0]){
+            $scope.cell02 = true
+            $scope.cell11 = true
+            $scope.cell20 = true
         } else {
-            $scope.win = true
-            $scope.lock = isAI? false : true
-			$scope.turn = $scope.turn === 1? 2 : 1
-	        if(cells[0][0] && cells[0][0] === cells[0][1] && cells[0][0] === cells[0][2]){
-	            $scope.cell00 = true
-	            $scope.cell01 = true
-	            $scope.cell02 = true
-	        } else if(cells[1][0] && cells[1][0] === cells[1][1] && cells[1][0] === cells[1][2]){
-	            $scope.cell10 = true
-	            $scope.cell11 = true
-	            $scope.cell12 = true
-	        } else if(cells[2][0] && cells[2][0] === cells[2][1] && cells[2][0] === cells[2][2]){
-	            $scope.cell20 = true
-	            $scope.cell21 = true
-	            $scope.cell22 = true
-	        } else if(cells[0][0] && cells[0][0] === cells[1][0] && cells[0][0] === cells[2][0]){
-	            $scope.cell00 = true
-	            $scope.cell10 = true
-	            $scope.cell20 = true
-	        } else if(cells[0][1] && cells[0][1] === cells[1][1] && cells[0][1] === cells[2][1]){
-	            $scope.cell01 = true
-	            $scope.cell11 = true
-	            $scope.cell21 = true
-	        } else if(cells[0][2] && cells[0][2] === cells[1][2] && cells[0][2] === cells[2][2]){
-	            $scope.cell02 = true
-	            $scope.cell12 = true
-	            $scope.cell22 = true
-	        } else if(cells[0][0] && cells[0][0] === cells[1][1] && cells[0][0] === cells[2][2]){
-	            $scope.cell00 = true
-	            $scope.cell11 = true
-	            $scope.cell22 = true
-	        } else if(cells[0][2] && cells[0][2] === cells[1][1] && cells[0][2] === cells[2][0]){
-	            $scope.cell02 = true
-	            $scope.cell11 = true
-	            $scope.cell20 = true
+	        const stringified = cells.toString()
+	        if(stringified.indexOf('0') < 0){
+	            $scope.draw = true
+	            $scope.lock = isAI? false : true
+	            console.log('draw')
+	            $scope.turn = $scope.turn === 1? 2 : 1
 	        } else {
 	            $scope.win = false
 	            $scope.lock = false
 	            $scope.turn = $scope.turn === 1? 2 : 1
 	        }
-	    }
+        }
     }
     $scope.move = function(row, col){
     	const none = !$scope.cells[row][col]
@@ -111,7 +113,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	            $scope.cells[row][col] = 1
 	            $scope.checkWin(false)
 	        	$timeout(() => {
-	        		if($scope.is1Player){
+	        		if($scope.is1Player && !$scope.win && !$scope.draw){
 			            $scope.turn = 1
 		        		$scope.AImakeMove()
 			            $scope.checkWin(true)
@@ -121,6 +123,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	        } else {
 	            $scope.cells[row][col] = $scope.turn
 	            $scope.turn = $scope.turn === 1? 2 : 1
+	            console.log('checking win......')
 	            $scope.checkWin(false)
 	        }
         }
@@ -134,7 +137,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
             $scope.cells = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
             $scope.firstTurn = $scope.firstTurn === 1? 2 : 1;
             $scope.turn = $scope.firstTurn
-            if($scope.is1Player && $scope.firstTurn === 2){
+            if($scope.is1Player && $scope.firstTurn === 2 && !$scope.win && !$scope.draw){
             	$scope.AIchoosing = true
 	        	$timeout(() => {
 	        		if($scope.is1Player){
