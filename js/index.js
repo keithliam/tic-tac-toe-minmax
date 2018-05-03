@@ -135,19 +135,23 @@ myApp.controller('thisController', ['$scope', function($scope){
     $scope.AIgetNextMove = function(){
     	const nextMoves = $scope.AInextMoves($scope.cells)
     	var max = -1
-    	var bestMove = 0
-    	var temp
-    	for(var i = 0; i < nextMoves.length; i++){
-    		temp = $scope.AImin($scope.AInextState($scope.cells, nextMoves[i][0], nextMoves[i][1], 2))
-    		if(temp === 1){
-    			bestMove = i
-    			break
-    		} else if(temp > max){
-    			max = temp
-    			bestMove = i
+    	var values = []
+    	var bestMoves = []
+    	var value
+    	nextMoves.map((move, i) => {
+    		value = $scope.AImin($scope.AInextState($scope.cells, move[0], move[1], 2))
+    		values.push(value)
+    		if(value > max){
+    			max = value
     		}
-    	}
-    	return [nextMoves[bestMove][0], nextMoves[bestMove][1]]
+    	})
+    	values.map((value, i) => {
+    		if(value === max){
+    			bestMoves.push(i)
+    		}
+    	})
+    	const move = Math.floor(Math.random() * bestMoves.length)
+    	return nextMoves[bestMoves[move]]
     }
     $scope.AIisTerminal = function(state){
     	if(
