@@ -95,7 +95,6 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	        if(stringified.indexOf('0') < 0){
 	            $scope.draw = true
 	            $scope.lock = isAI? false : true
-	            console.log('draw')
 	            $scope.turn = $scope.turn === 1? 2 : 1
 	        } else {
 	            $scope.win = false
@@ -123,7 +122,6 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	        } else {
 	            $scope.cells[row][col] = $scope.turn
 	            $scope.turn = $scope.turn === 1? 2 : 1
-	            console.log('checking win......')
 	            $scope.checkWin(false)
 	        }
         }
