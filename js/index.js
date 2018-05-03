@@ -111,7 +111,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	        	$scope.AIchoosing = true
 	            $scope.cells[row][col] = 1
 	            $scope.checkWin(false)
-	        	$timeout(() => {
+	        	$timeout(function(){
 	        		if($scope.is1Player && !$scope.win && !$scope.draw){
 			            $scope.turn = 1
 		        		$scope.AImakeMove()
@@ -137,7 +137,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
             $scope.turn = $scope.firstTurn
             if($scope.is1Player && $scope.firstTurn === 2 && !$scope.win && !$scope.draw){
             	$scope.AIchoosing = true
-	        	$timeout(() => {
+	        	$timeout(function(){
 	        		if($scope.is1Player){
 			            $scope.turn = 1
 		        		$scope.AImakeMove()
@@ -173,14 +173,14 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
     	var values = []
     	var bestMoves = []
     	var value
-    	nextMoves.map((move, i) => {
+    	nextMoves.map(function(move, i){
     		value = $scope.AImin($scope.AInextState($scope.cells, move[0], move[1], 2))
     		values.push(value)
     		if(value > max){
     			max = value
     		}
     	})
-    	values.map((value, i) => {
+    	values.map(function(value, i){
     		if(value === max){
     			bestMoves.push(i)
     		}
