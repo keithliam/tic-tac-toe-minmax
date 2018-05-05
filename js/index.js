@@ -165,53 +165,21 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    $scope.cells[coordinates[0]][coordinates[1]] = 2
     }
     $scope.AIgetNextMove = function(){
-    	const nextMoves = $scope.AInextMoves($scope.cells)
-    	var max = -999
-    	var values = []
-    	var bestMoves = []
-    	var value
-    	nextMoves.map(function(move, i){
-    		value = $scope.AImin($scope.AInextState($scope.cells, move, 2), max)
-    		values.push(value)
-    		if(value > max) max = value
-    	})
-    	values.map(function(value, i){
-    		if(value === max) bestMoves.push(i)
-    	})
-    	const move = Math.floor(Math.random() * bestMoves.length)
-    	return nextMoves[bestMoves[move]]
-    }
-    $scope.AIisTerminal = function(state){
-    	if(
-			(state[0][0] && state[0][0] === state[0][1] && state[0][0] === state[0][2]) ||
-			(state[1][0] && state[1][0] === state[1][1] && state[1][0] === state[1][2]) ||
-			(state[2][0] && state[2][0] === state[2][1] && state[2][0] === state[2][2]) ||
-			(state[0][0] && state[0][0] === state[1][0] && state[0][0] === state[2][0]) ||
-			(state[0][1] && state[0][1] === state[1][1] && state[0][1] === state[2][1]) ||
-			(state[0][2] && state[0][2] === state[1][2] && state[0][2] === state[2][2]) ||
-			(state[0][0] && state[0][0] === state[1][1] && state[0][0] === state[2][2]) ||
-			(state[0][2] && state[0][2] === state[1][1] && state[0][2] === state[2][0])
-        	){
-        	return 1
-       	} else if(state[0][0] && state[0][1] && state[0][2] && state[1][0] && state[1][1] && state[1][2] && state[2][0] && state[2][1] && state[2][2]){
-       		return 0
-        } else {
-        	return -1
-        }
-    }
-    $scope.AInextMoves = function(state){
-    	var moves = []
-    	for(var row = 0; row < 3; row++){
-    		for(var col = 0; col < 3; col++){
-    			if(state[row][col] === 0) moves.push([row, col])
-    		}
-    	}
-    	return moves
-    }
-    $scope.AInextState = function(state, rowCol,turn){
-    	state = state.clone()
-    	state[rowCol[0]][rowCol[1]] = turn
-    	return state
+        const nextMoves = $scope.AInextMoves($scope.cells)
+        var max = -999
+        var values = []
+        var bestMoves = []
+        var value
+        nextMoves.map(function(move, i){
+            value = $scope.AImin($scope.AInextState($scope.cells, move, 2), max)
+            values.push(value)
+            if(value > max) max = value
+        })
+        values.map(function(value, i){
+            if(value === max) bestMoves.push(i)
+        })
+        const move = Math.floor(Math.random() * bestMoves.length)
+        return nextMoves[bestMoves[move]]
     }
 	$scope.AImin = function(state, alpha){
 		var won = $scope.AIisTerminal(state)
@@ -246,6 +214,37 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    } else {
 	    	return 0
 	    }
-
+    }
+    $scope.AIisTerminal = function(state){
+        if(
+            (state[0][0] && state[0][0] === state[0][1] && state[0][0] === state[0][2]) ||
+            (state[1][0] && state[1][0] === state[1][1] && state[1][0] === state[1][2]) ||
+            (state[2][0] && state[2][0] === state[2][1] && state[2][0] === state[2][2]) ||
+            (state[0][0] && state[0][0] === state[1][0] && state[0][0] === state[2][0]) ||
+            (state[0][1] && state[0][1] === state[1][1] && state[0][1] === state[2][1]) ||
+            (state[0][2] && state[0][2] === state[1][2] && state[0][2] === state[2][2]) ||
+            (state[0][0] && state[0][0] === state[1][1] && state[0][0] === state[2][2]) ||
+            (state[0][2] && state[0][2] === state[1][1] && state[0][2] === state[2][0])
+            ){
+            return 1
+        } else if(state[0][0] && state[0][1] && state[0][2] && state[1][0] && state[1][1] && state[1][2] && state[2][0] && state[2][1] && state[2][2]){
+            return 0
+        } else {
+            return -1
+        }
+    }
+    $scope.AInextMoves = function(state){
+        var moves = []
+        for(var row = 0; row < 3; row++){
+            for(var col = 0; col < 3; col++){
+                if(state[row][col] === 0) moves.push([row, col])
+            }
+        }
+        return moves
+    }
+    $scope.AInextState = function(state, rowCol,turn){
+        state = state.clone()
+        state[rowCol[0]][rowCol[1]] = turn
+        return state
     }
 }])
