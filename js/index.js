@@ -174,7 +174,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
     	var bestMoves = []
     	var value
     	nextMoves.map(function(move, i){
-    		value = $scope.AImin($scope.AInextState($scope.cells, move[0], move[1], 2), max)
+    		value = $scope.AImin($scope.AInextState($scope.cells, move, 2), max)
     		values.push(value)
     		if(value > max){
     			max = value
@@ -217,9 +217,9 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
     	}
     	return moves
     }
-    $scope.AInextState = function(state, row, col,turn){
+    $scope.AInextState = function(state, rowCol,turn){
     	state = state.clone()
-    	state[row][col] = turn
+    	state[rowCol[0]][rowCol[1]] = turn
     	return state
     }
 	$scope.AImin = function(state, alpha){
@@ -229,7 +229,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    	var min = 999
 	    	var temp
 	    	for(var i = 0; i < nextMoves.length; i++){
-	    		temp = $scope.AImax($scope.AInextState(state, nextMoves[i][0], nextMoves[i][1], 1), min)
+	    		temp = $scope.AImax($scope.AInextState(state, nextMoves[i], 1), min)
                 if(temp <= alpha){
                     return temp
                 }
@@ -249,7 +249,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    	var max = -999
 	    	var temp
 	    	for(var i = 0; i < nextMoves.length; i++){
-	    		temp = $scope.AImin($scope.AInextState(state, nextMoves[i][0], nextMoves[i][1], 2), max)
+	    		temp = $scope.AImin($scope.AInextState(state, nextMoves[i], 2), max)
                 if(temp >= beta){
                     return temp
                 }
