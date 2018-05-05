@@ -218,11 +218,11 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 		if(won === -1){
 			const nextMoves = $scope.AInextMoves(state)
 	    	var min = 999
-	    	var temp
+	    	var value
 	    	for(var i = 0; i < nextMoves.length; i++){
-	    		temp = $scope.AImax($scope.AInextState(state, nextMoves[i], 1), min)
-                if(temp < alpha) return temp
-                if(temp < min) min = temp
+	    		value = $scope.AImax($scope.AInextState(state, nextMoves[i], 1), min)
+                if(value < alpha) return value
+                if(value < min) min = value
 	    	}
 	    	return min
 	    } else {
@@ -234,11 +234,11 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 		if(lost === -1){
 			const nextMoves = $scope.AInextMoves(state)
 	    	var max = -999
-	    	var temp
+	    	var value
 	    	for(var i = 0; i < nextMoves.length; i++){
-	    		temp = $scope.AImin($scope.AInextState(state, nextMoves[i], 2), max)
-                if(temp > beta) return temp
-	    		if(temp > max) max = temp
+	    		value = $scope.AImin($scope.AInextState(state, nextMoves[i], 2), max)
+                if(value > beta) return value
+	    		if(value > max) max = value
 	    	}
 	    	return max
 	    } else if(lost === 1){
