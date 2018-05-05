@@ -169,12 +169,12 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
     }
     $scope.AIgetNextMove = function(){
     	const nextMoves = $scope.AInextMoves($scope.cells)
-    	var max = -1
+    	var max = -999
     	var values = []
     	var bestMoves = []
     	var value
     	nextMoves.map(function(move, i){
-    		value = $scope.AImin($scope.AInextState($scope.cells, move[0], move[1], 2))
+    		value = $scope.AImin($scope.AInextState($scope.cells, move[0], move[1], 2), max)
     		values.push(value)
     		if(value > max){
     			max = value
@@ -222,14 +222,17 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
     	state[row][col] = turn
     	return state
     }
-	$scope.AImin = function(state){
+	$scope.AImin = function(state, alpha){
 		var won = $scope.AIisTerminal(state)
 		if(won === -1){
 			const nextMoves = $scope.AInextMoves(state)
-	    	var min = 1
+	    	var min = 999
 	    	var temp
 	    	for(var i = 0; i < nextMoves.length; i++){
-	    		temp = $scope.AImax($scope.AInextState(state, nextMoves[i][0], nextMoves[i][1], 1))
+	    		temp = $scope.AImax($scope.AInextState(state, nextMoves[i][0], nextMoves[i][1], 1), min)
+                if(temp < alpha){
+                    return temp
+                }
                 if(temp < min){
 	    			min = temp
 	    		}
@@ -239,14 +242,17 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    	return won
 	    }
 	}
-    $scope.AImax = function(state){
+    $scope.AImax = function(state, beta){
 		var lost = $scope.AIisTerminal(state)
 		if(lost === -1){
 			const nextMoves = $scope.AInextMoves(state)
-	    	var max = -1
+	    	var max = -999
 	    	var temp
 	    	for(var i = 0; i < nextMoves.length; i++){
-	    		temp = $scope.AImin($scope.AInextState(state, nextMoves[i][0], nextMoves[i][1], 2))
+	    		temp = $scope.AImin($scope.AInextState(state, nextMoves[i][0], nextMoves[i][1], 2), max)
+                if(temp > max){
+                    return temp
+                }
 	    		if(temp > max){
 	    			max = temp
 	    		}
