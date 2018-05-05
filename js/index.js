@@ -230,7 +230,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    	var temp
 	    	for(var i = 0; i < nextMoves.length; i++){
 	    		temp = $scope.AImax($scope.AInextState(state, nextMoves[i], 1), min)
-                if(temp <= alpha){
+                if(temp < alpha){
                     return temp
                 }
                 if(temp < min){
@@ -250,7 +250,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
 	    	var temp
 	    	for(var i = 0; i < nextMoves.length; i++){
 	    		temp = $scope.AImin($scope.AInextState(state, nextMoves[i], 2), max)
-                if(temp >= beta){
+                if(temp > beta){
                     return temp
                 }
 	    		if(temp > max){
