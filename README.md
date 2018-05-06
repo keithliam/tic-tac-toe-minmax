@@ -7,6 +7,7 @@ A Tic Tac Toe game with an unbeatable AI.
 * Can choose between 1-Player mode and 2-Player mode
 * Responsive: May be viewed and played in any screen dimensions
 * MiniMax AI with Alpha-Beta Pruning for maximum efficiency.
+* Sound effects for better game experience.
 
 ## How to run
 
