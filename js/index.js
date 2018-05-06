@@ -1,15 +1,15 @@
 Array.prototype.clone = function(arr){
-    var arr = arguments[0] == null? [] : arguments[0] 
-    for(var p = 0; p < this.length; p++){
-        if(this[p] instanceof Array){
-            var sub = [] ;
-            this[p].clone(sub) ;
-            arr.push(sub.slice(0));
-        } else {
-            arr.push(this[p])
-        }
-    }
-    return arr
+   var arr = arguments[0] == null? [] : arguments[0] 
+   for(var p = 0; p < this.length; p++){
+       if(this[p] instanceof Array){
+           var sub = [] ;
+           this[p].clone(sub) ;
+           arr.push(sub.slice(0));
+       } else {
+           arr.push(this[p])
+       }
+   }
+   return arr
 }
 
 var myApp = angular.module('myApp', ['ngAnimate'])
@@ -62,34 +62,50 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
             $scope.cell00 = true
             $scope.cell01 = true
             $scope.cell02 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else if(cells[1][0] && cells[1][0] === cells[1][1] && cells[1][0] === cells[1][2]){
             $scope.cell10 = true
             $scope.cell11 = true
             $scope.cell12 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else if(cells[2][0] && cells[2][0] === cells[2][1] && cells[2][0] === cells[2][2]){
             $scope.cell20 = true
             $scope.cell21 = true
             $scope.cell22 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else if(cells[0][0] && cells[0][0] === cells[1][0] && cells[0][0] === cells[2][0]){
             $scope.cell00 = true
             $scope.cell10 = true
             $scope.cell20 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else if(cells[0][1] && cells[0][1] === cells[1][1] && cells[0][1] === cells[2][1]){
             $scope.cell01 = true
             $scope.cell11 = true
             $scope.cell21 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else if(cells[0][2] && cells[0][2] === cells[1][2] && cells[0][2] === cells[2][2]){
             $scope.cell02 = true
             $scope.cell12 = true
             $scope.cell22 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else if(cells[0][0] && cells[0][0] === cells[1][1] && cells[0][0] === cells[2][2]){
             $scope.cell00 = true
             $scope.cell11 = true
             $scope.cell22 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else if(cells[0][2] && cells[0][2] === cells[1][1] && cells[0][2] === cells[2][0]){
             $scope.cell02 = true
             $scope.cell11 = true
             $scope.cell20 = true
+            if(isAI) $scope.playAudio('lose')
+            else $scope.playAudio('win')
         } else {
             const stringified = cells.toString()
             if(stringified.indexOf('0') < 0){
@@ -97,6 +113,7 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
                 $scope.draw = true
                 $scope.lock = isAI? false : true
                 $scope.turn = $scope.turn === 1? 2 : 1
+                $scope.playAudio('draw')
             } else {
                 $scope.win = false
                 $scope.lock = false
@@ -108,18 +125,22 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
         const none = !$scope.cells[row][col]
         if(!$scope.win && !$scope.draw && none && !$scope.AIchoosing){
             if($scope.is1Player && $scope.turn === 1){
+                $scope.playAudio('tap1')
                 $scope.turn = 2
                 $scope.cells[row][col] = 1
                 $scope.checkWin(false)
                 if(!$scope.win && !$scope.draw){
                     $scope.AIchoosing = true
                     $scope.AImakeMove(function(){
+                        $scope.playAudio('tap2')
                         $scope.turn = 1
                         $scope.checkWin(true)
                         $scope.AIchoosing = false
                     })
                 }
             } else if(!$scope.is1Player) {
+                if($scope.turn === 1) $scope.playAudio('tap1')
+                else $scope.playAudio('tap2')
                 $scope.cells[row][col] = $scope.turn
                 $scope.turn = $scope.turn === 1? 2 : 1
                 $scope.checkWin(false)
@@ -155,6 +176,9 @@ myApp.controller('thisController', ['$scope', '$timeout', function($scope, $time
             else $scope.colorizeNumber = 1
             $scope.colorize = 'colorize' + $scope.colorizeNumber
         }
+    }
+    $scope.playAudio = function(type){
+        (new Audio('audio/' + type + '.mp3')).play()
     }
 
     $scope.AImakeMove = function(callback){
