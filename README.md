@@ -11,4 +11,4 @@ A Tic Tac Toe game with an unbeatable AI.
 
 ## How to run
 
-Just open the index.html file via browser.
+Just open the home.html file via browser.
