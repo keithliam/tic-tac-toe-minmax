@@ -9,6 +9,12 @@ A Tic Tac Toe game with an unbeatable AI.
 * MiniMax AI with Alpha-Beta Pruning for maximum efficiency.
 * Sound effects for better game experience.
 
-## How to run
+## Play Online
+
+You may play the game hosted in Heroku [here](https://bit.ly/UnbeatableTicTacToe).
+
+## Play Locally
 
 Just open the home.html file via browser.
+
+![Screenshot of the Tic Tac Toe interface](screenshot.png)
