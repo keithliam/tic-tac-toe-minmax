@@ -11,7 +11,7 @@ A Tic Tac Toe game with an unbeatable AI.
 
 ## Play Online
 
-You may play the game hosted in Heroku [here](https://bit.ly/UnbeatableTicTacToe).
+You may play the game hosted on Netlify [here](https://keiths-tictactoe-minmax.netlify.app/).
 
 ## Play Locally
 
